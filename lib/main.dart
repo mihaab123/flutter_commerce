@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_commerce/provider/app.dart';
 import 'package:flutter_commerce/provider/product.dart';
@@ -21,13 +22,13 @@ void main() async {
     ChangeNotifierProvider.value(value: ProductProvider.initialize()),
     ChangeNotifierProvider.value(value: AppProvider()),
   ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-
-        theme: ThemeData(
-            primaryColor: Colors.deepOrange
-        ),
-        home: ScreensController(),
+      child: EasyLocalization(
+        supportedLocales: [Locale('en', 'US'), Locale('ru', 'RU')],
+        //supportedLocales: [ Locale('ru', 'RU')],
+        path: 'assets/translations',
+        //fallbackLocale: Locale('ru', 'RU'),
+        fallbackLocale: Locale('en', 'US'),
+        child: MyApp(),
       )));
 }
 
@@ -45,6 +46,21 @@ class ScreensController extends StatelessWidget {
         return HomePage();
       default: return Login();
     }
+  }
+}
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      theme: ThemeData(
+          primaryColor: Colors.deepOrange
+      ),
+      home: ScreensController(),
+    );
   }
 }
 

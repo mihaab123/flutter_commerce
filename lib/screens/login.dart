@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/a.mikhailov/AndroidStudioProjects/flutter_commerce/lib/widgets/common.dart';
+import 'package:flutter_commerce/widgets/common.dart';
 import 'package:flutter_commerce/db/auth.dart';
 import 'package:flutter_commerce/widgets/loading.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import 'cart.dart';
 import 'package:flutter_commerce/widgets/common.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 
 
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
         iconTheme: IconThemeData(color: deepOrange),
         elevation: 0.1,
         backgroundColor: white,
-        title: Text('E-commerce', style: TextStyle(color: deepOrange),),
+        title: Text('app_title'.tr(), style: TextStyle(color: deepOrange),),
         actions: <Widget>[
           new IconButton(
               icon: Icon(
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
             InkWell(
               onTap: (){changeScreen(context,HomePage());},
               child: ListTile(
-                title: Text('Home Page'),
+                title: Text('home'.tr()),
                 leading: Icon(Icons.home,color: Colors.red,),
               ),
             ),
@@ -117,21 +118,21 @@ class _HomePageState extends State<HomePage> {
             InkWell(
               onTap: (){changeScreen(context, Profile());},
               child: ListTile(
-                title: Text('My account'),
+                title: Text('my_account'.tr()),
                 leading: Icon(Icons.person,color: Colors.red,),
               ),
             ),
             InkWell(
               onTap: (){changeScreen(context,CatalogScreen());},
               child: ListTile(
-                title: Text('Catalog'),
+                title: Text('сatalog'.tr()),
                 leading: Icon(Icons.storage,color: Colors.red,),
               ),
             ),
             InkWell(
               onTap: (){changeScreen(context,OrdersScreen());},
               child: ListTile(
-                title: Text('My Orders'),
+                title: Text('my_orders'.tr()),
                 leading: Icon(Icons.shopping_basket,color: Colors.red,),
               ),
             ),
@@ -139,7 +140,7 @@ class _HomePageState extends State<HomePage> {
             InkWell(
               onTap: (){changeScreen(context,CartScreen());},
               child: ListTile(
-                title: Text('Shopping cart'),
+                title: Text('shopping_cart'.tr()),
                 leading: Icon(Icons.shopping_cart,color: Colors.red,),
               ),
             ),
@@ -147,7 +148,7 @@ class _HomePageState extends State<HomePage> {
             InkWell(
               onTap: (){changeScreen(context,FavoriteScreen());},
               child: ListTile(
-                title: Text('Favourites'),
+                title: Text('favorites'.tr()),
                 leading: Icon(Icons.favorite,color: Colors.red,),
               ),
             ),
@@ -162,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                 });*/
               },
               child: ListTile(
-                title: Text('Log out'),
+                title: Text('log_out'),
                 leading: Icon(Icons.transit_enterexit, color: Colors.grey,),
               ),
             ),

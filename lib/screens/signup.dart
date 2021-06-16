@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_commerce/db/auth.dart';
 import 'package:flutter_commerce/db/users.dart';
-import 'file:///C:/Users/a.mikhailov/AndroidStudioProjects/flutter_commerce/lib/widgets/common.dart';
+import 'package:flutter_commerce/widgets/common.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'home.dart';
 
@@ -146,13 +147,13 @@ class _SignUpState extends State<SignUp> {
                                   title: TextFormField(
                                     controller: _nameTextController,
                                     decoration: InputDecoration(
-                                      hintText: "Full name",
+                                      hintText: "full_name".tr(),
                                       icon: Icon(Icons.person_outline),
                                         border: InputBorder.none
                                     ),
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return "The name field cannot be empty";
+                                        return "full_name_empty_error".tr();
                                       }
                                       return null;
                                     },
@@ -172,7 +173,7 @@ class _SignUpState extends State<SignUp> {
                                   Expanded(
                                       child: ListTile(
                                         title: Text(
-                                          "male",
+                                          "male".tr(),
                                           textAlign: TextAlign.end,
                                           style: TextStyle(color: black),
                                         ),
@@ -184,7 +185,7 @@ class _SignUpState extends State<SignUp> {
                                   Expanded(
                                       child: ListTile(
                                         title: Text(
-                                          "female",
+                                          "female".tr(),
                                           textAlign: TextAlign.end,
                                           style: TextStyle(color: black),
                                         ),
@@ -208,7 +209,7 @@ class _SignUpState extends State<SignUp> {
                                 child: TextFormField(
                                   controller: _emailTextController,
                                   decoration: InputDecoration(
-                                    hintText: "Email",
+                                    hintText: "email".tr(),
                                     icon: Icon(Icons.alternate_email),
                                       border: InputBorder.none
                                   ),
@@ -218,7 +219,7 @@ class _SignUpState extends State<SignUp> {
                                           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                                       RegExp regex = new RegExp(pattern);
                                       if (!regex.hasMatch(value))
-                                        return 'Please make sure your email address is valid';
+                                        return 'email_input_error'.tr();
                                       else
                                         return null;
                                     }
@@ -242,15 +243,15 @@ class _SignUpState extends State<SignUp> {
                                     obscureText: hidePass,
                                     controller: _passwordTextController,
                                     decoration: InputDecoration(
-                                      hintText: "Password",
+                                      hintText: "password".tr(),
                                       icon: Icon(Icons.lock_outline),
                                         border: InputBorder.none
                                     ),
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return "The password field cannot be empty";
+                                        return "password_empty_error".tr();
                                       } else if (value.length < 6) {
-                                        return "the password has to be at least 6 characters long";
+                                        return "password_long_error".tr();
                                       }
                                       return null;
                                     },
@@ -281,17 +282,17 @@ class _SignUpState extends State<SignUp> {
                                     obscureText: hidePass,
                                     controller: _confirmPasswordController,
                                     decoration: InputDecoration(
-                                      hintText: "Confirm password",
+                                      hintText: "confirm_password".tr(),
                                       icon: Icon(Icons.lock_outline),
                                       border: InputBorder.none
                                     ),
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return "The password field cannot be empty";
+                                        return "password_empty_error".tr();
                                       } else if (value.length < 6) {
-                                        return "the password has to be at least 6 characters long";
+                                        return "password_long_error".tr();
                                       } else if(_passwordTextController.text != value){
-                                        return "The password do not match";
+                                        return "confirm_password_error".tr();
                                       }
                                       return null;
                                     },
@@ -314,7 +315,7 @@ class _SignUpState extends State<SignUp> {
                                   },
                                   minWidth: MediaQuery.of(context).size.width,
                                   child: Text(
-                                    "Sign in",
+                                    "signin".tr(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: white,
@@ -339,7 +340,7 @@ class _SignUpState extends State<SignUp> {
                                     Navigator.pop(context);
                                   },
                                   child: Text(
-                                    "I already have an account",
+                                    "text_have_account".tr(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(color: deepOrange, fontSize: 16),
                                   ))),
@@ -355,7 +356,7 @@ class _SignUpState extends State<SignUp> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text("Or Sing up with", style: TextStyle(fontSize: 20,color: Colors.grey),),
+                                  child: Text("text_sign_with".tr(), style: TextStyle(fontSize: 20,color: Colors.grey),),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
