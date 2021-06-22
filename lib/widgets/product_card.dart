@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_commerce/models/product.dart';
 import 'package:flutter_commerce/screens/product_details.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'common.dart';
 import 'custom_text.dart';
@@ -67,11 +68,11 @@ class ProductCard extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                   TextSpan(
-                    text: 'by: ${product.brand} \n\n',
+                    text: 'text_by'.tr()+' ${product.brand} \n\n',
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   TextSpan(
-                    text: 'Size: ${product.sizes.join(",")} \n\n',
+                    text: 'text_size'.tr()+' ${product.sizes.join(",")} \n\n',
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   TextSpan(
@@ -79,7 +80,7 @@ class ProductCard extends StatelessWidget {
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   TextSpan(
-                    text: product.sale ? 'ON SALE ' : "",
+                    text: product.sale ? 'on_sale'.tr() : "",
 
                     style: TextStyle(
                         fontSize: 18,
@@ -98,7 +99,7 @@ class ProductCard extends StatelessWidget {
   Widget _productImage(String picture) {
     if (picture == null) {
       return Container(
-        child: CustomText(text: "No Image"),
+        child: CustomText(text: "text_no_image".tr()),
       );
     } else {
       return Padding(

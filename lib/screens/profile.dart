@@ -4,6 +4,7 @@ import 'package:flutter_commerce/provider/user_provider.dart';
 import 'package:flutter_commerce/widgets/common.dart';
 import 'package:flutter_commerce/widgets/custom_text.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Profile extends StatefulWidget {
 
@@ -22,7 +23,7 @@ class _ProfileState extends State<Profile> {
         iconTheme: IconThemeData(color: black),
         backgroundColor: white,
         elevation: 0.0,
-        title: CustomText(text: "Profile"),
+        title: CustomText(text: "my_account".tr()),
         leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -83,7 +84,7 @@ class _ProfileState extends State<Profile> {
               color: Colors.white,
             ),
             label: Text(
-              'Change password',
+              'change_password'.tr(),
               style: TextStyle(color: Colors.white),
             ),
             color: deepOrange,
@@ -102,7 +103,7 @@ class _ProfileState extends State<Profile> {
     final _formKey = GlobalKey<FormState>();
     showDialog(context: context, builder: (BuildContext context){
       return AlertDialog(
-        title: Text('Change password'),
+        title: Text('change_password').tr(),
         content: Container(
           child: Form(
             key: _formKey,
@@ -112,15 +113,15 @@ class _ProfileState extends State<Profile> {
                   obscureText: true,
                   controller: _passwordTextController,
                   decoration: InputDecoration(
-                      hintText: "Old password",
+                      hintText: "old_password".tr(),
                       icon: Icon(Icons.lock_outline),
                       border: InputBorder.none
                   ),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return "The password field cannot be empty";
+                      return "password_empty_error".tr();
                     } else if (value.length < 6) {
-                      return "the password has to be at least 6 characters long";
+                      return "password_long_error".tr();
                     }
                     return null;
                   },
@@ -129,15 +130,15 @@ class _ProfileState extends State<Profile> {
                   obscureText: true,
                   controller: _newPasswordTextController,
                   decoration: InputDecoration(
-                      hintText: "New password",
+                      hintText: "new_password".tr(),
                       icon: Icon(Icons.lock_outline),
                       border: InputBorder.none
                   ),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return "The new password field cannot be empty";
+                      return "password_empty_error".tr();
                     } else if (value.length < 6) {
-                      return "the new password has to be at least 6 characters long";
+                      return "password_long_error".tr();
                     }
                     return null;
                   },
@@ -146,17 +147,17 @@ class _ProfileState extends State<Profile> {
                   obscureText: true,
                   controller: _confirmPasswordController,
                   decoration: InputDecoration(
-                      hintText: "Confirm password",
+                      hintText: "confirm_password".tr(),
                       icon: Icon(Icons.lock_outline),
                       border: InputBorder.none
                   ),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return "The new password field cannot be empty";
+                      return "password_empty_error".tr();
                     } else if (value.length < 6) {
-                      return "the new password has to be at least 6 characters long";
+                      return "password_long_error".tr();
                     } else if(_newPasswordTextController.text != value){
-                      return "The new password do not match";
+                      return "confirm_password_error".tr();
                     }
                     return null;
                   },
@@ -168,13 +169,13 @@ class _ProfileState extends State<Profile> {
         ),
         actions: [
           FlatButton(
-            child: Text('Exit'),
+            child: Text('exit').tr(),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           FlatButton(
-            child: Text('Ok'),
+            child: Text('ok').tr(),
             onPressed: () {
               if(_formKey.currentState.validate()){
                 AuthCredential authCredential = EmailAuthProvider.credential(

@@ -11,6 +11,7 @@ import 'package:flutter_commerce/widgets/custom_text.dart';
 import 'package:flutter_commerce/widgets/product_card.dart';
 import 'package:provider/provider.dart';
 import 'package:expandable/expandable.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'dart:math' as math;
 
 import 'cart.dart';
@@ -65,7 +66,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
       endDrawer: Drawer(
         child: Column(
           children: [
-            Text("Filter by:"),
+            Text("text_filter_by").tr(),
             Expanded(
               child: ExpandableTheme(
                 data: const ExpandableThemeData(
@@ -86,7 +87,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
             ),
             ElevatedButton(
               onPressed: () {},
-              child: Text("Apply"),
+              child: Text("button_apply").tr(),
             ),
           ],
         ),
@@ -198,7 +199,7 @@ class Card3 extends StatelessWidget {
                     ),
                   ),
                 ),
-                expanded: buildList(),
+                expanded: buildList(), collapsed: null,
               ),
             ],
           ),

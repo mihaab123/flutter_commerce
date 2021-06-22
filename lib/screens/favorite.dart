@@ -10,6 +10,7 @@ import 'package:flutter_commerce/widgets/common.dart';
 import 'package:flutter_commerce/widgets/custom_text.dart';
 import 'package:flutter_commerce/widgets/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:spinner_input/spinner_input.dart';
 import 'package:uuid/uuid.dart';
 
@@ -34,7 +35,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         iconTheme: IconThemeData(color: black),
         backgroundColor: white,
         elevation: 0.0,
-        title: CustomText(text: "Favorite"),
+        title: CustomText(text: "favorites".tr()),
         leading: IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
@@ -116,7 +117,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   userProvider.reloadUserModel();
                                   print("Item removed for favorite");
                                   _key.currentState.showSnackBar(SnackBar(
-                                      content: Text("Removed from favorite!")));
+                                      content: Text("button_remove_favorite").tr()));
                                   appProvider.changeIsLoading();
                                   return;
                                 } else {

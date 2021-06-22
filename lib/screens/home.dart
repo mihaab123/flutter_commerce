@@ -85,13 +85,13 @@ class _HomePageState extends State<HomePage> {
 //            header
             new UserAccountsDrawerHeader(
               accountName: CustomText(
-                text: userProvider.userModel?.name ?? "username loading...",
+                text: userProvider.userModel?.name ?? "username_loading".tr(),
                 color: white,
                 weight: FontWeight.bold,
                 size: 18,
               ),
               accountEmail: CustomText(
-                text: userProvider.userModel?.email ?? "email loading...",
+                text: userProvider.userModel?.email ?? "email_loading".tr(),
                 color: white,
               ),
               currentAccountPicture: GestureDetector(
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                 });*/
               },
               child: ListTile(
-                title: Text('log_out'),
+                title: Text('log_out').tr(),
                 leading: Icon(Icons.transit_enterexit, color: Colors.grey,),
               ),
             ),
@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(14.0),
                   child: Container(
                       alignment: Alignment.centerLeft,
-                      child: new Text('Featured products')),
+                      child: new Text('featured_products').tr()),
                 ),
               ],
             ),
@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(14.0),
                   child: Container(
                       alignment: Alignment.centerLeft,
-                      child: new Text('Recent products')),
+                      child: new Text('recent_products').tr()),
                 ),
               ],
             ),
