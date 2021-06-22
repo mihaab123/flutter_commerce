@@ -13,6 +13,7 @@ import 'home.dart';
 import 'signup.dart';
 import 'package:provider/provider.dart';
 import '../provider/user_provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -103,7 +104,7 @@ class _LoginState extends State<Login> {
         await preferences.setString("nickname", documentsSnapshot[0]["nickname"]);
         await preferences.setString("photoURL", documentsSnapshot[0]["photoURL"]);
       }
-      Fluttertoast.showToast(msg: "Congratulations, sign in success.");
+      Fluttertoast.showToast(msg: "text_signin_success".tr());
       this.setState(() {
         isLoading = false;
       });
@@ -111,7 +112,7 @@ class _LoginState extends State<Login> {
     }
     // SignIn Not Success
     else {
-      Fluttertoast.showToast(msg: "Try again, sign in failed.");
+      Fluttertoast.showToast(msg: "text_signin_failed".tr());
       this.setState(() {
         isLoading = false;
       });
@@ -182,7 +183,7 @@ class _LoginState extends State<Login> {
                                 title: TextFormField(
                                   controller: _email,
                                   decoration: InputDecoration(
-                                    hintText: "Email",
+                                    hintText: "email".tr(),
                                     icon: Icon(Icons.alternate_email),
                                   ),
                                   validator: (value) {
@@ -191,7 +192,7 @@ class _LoginState extends State<Login> {
                                           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                                       RegExp regex = new RegExp(pattern);
                                       if (!regex.hasMatch(value))
-                                        return 'Please make sure your email address is valid';
+                                        return 'email_input_error'.tr();
                                       else
                                         return null;
                                     }
@@ -216,14 +217,14 @@ class _LoginState extends State<Login> {
                                   obscureText: hidePass,
                                   controller: _password,
                                   decoration: InputDecoration(
-                                    hintText: "Password",
+                                    hintText: "password".tr(),
                                     icon: Icon(Icons.lock_outline),
                                   ),
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return "The password field cannot be empty";
+                                      return "password_empty_error".tr();
                                     } else if (value.length < 6) {
-                                      return "the password has to be at least 6 characters long";
+                                      return "password_long_error".tr();
                                     }
                                     return null;
                                   },
@@ -253,7 +254,7 @@ class _LoginState extends State<Login> {
                                 },
                                 minWidth: MediaQuery.of(context).size.width,
                                 child: Text(
-                                  "Login",
+                                  "signin".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -302,7 +303,7 @@ class _LoginState extends State<Login> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "Forgot password",
+                                "forgot_password".tr(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: black,
@@ -317,7 +318,7 @@ class _LoginState extends State<Login> {
                                       changeScreen(context,SignUp());
                                     },
                                     child: Text(
-                                      "Create an account",
+                                      "create_account".tr(),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(color: black),
                                     ))),
@@ -409,7 +410,7 @@ class _LoginState extends State<Login> {
   Future<void> validate(UserProvider user) async {
     if(_formKey.currentState.validate()){
       if(!await user.signIn(_email.text, _password.text))
-        _key.currentState.showSnackBar(SnackBar(content: Text("Sign in failed")));
+        _key.currentState.showSnackBar(SnackBar(content: Text("text_signin_failed").tr()));
     }
   }
 }

@@ -15,6 +15,7 @@ import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
   debugPaintSizeEnabled = false;
   runApp(MultiProvider(providers: [
@@ -23,11 +24,11 @@ void main() async {
     ChangeNotifierProvider.value(value: AppProvider()),
   ],
       child: EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('ru', 'RU')],
-        //supportedLocales: [ Locale('ru', 'RU')],
+        //supportedLocales: [Locale('en', 'US'), Locale('ru', 'RU')],
+        supportedLocales: [ Locale('ru', 'RU')],
         path: 'assets/translations',
-        //fallbackLocale: Locale('ru', 'RU'),
-        fallbackLocale: Locale('en', 'US'),
+        fallbackLocale: Locale('ru', 'RU'),
+        //fallbackLocale: Locale('en', 'US'),
         child: MyApp(),
       )));
 }

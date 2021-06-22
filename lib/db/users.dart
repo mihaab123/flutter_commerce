@@ -18,14 +18,14 @@ class UserServices{
   }
   Future<UserModel> getUserById(String id)=> _database.collection(ref).doc(id).get().then((doc){
     print("==========id is $id=============");
-    debugPrint("==========NAME is ${doc.data()['nickname']}=============");
+    /*debugPrint("==========NAME is ${doc.data()['nickname']}=============");
     debugPrint("==========NAME is ${doc.data()['nickname']}=============");
     debugPrint("==========NAME is ${doc.data()['nickname']}=============");
     debugPrint("==========NAME is ${doc.data()['nickname']}=============");
 
     print("==========NAME is ${doc.data()['nickname']}=============");
     print("==========NAME is ${doc.data()['nickname']}=============");
-    print("==========NAME is ${doc.data()['nickname']}=============");
+    print("==========NAME is ${doc.data()['nickname']}=============");*/
 
 
     return UserModel.fromSnapshot(doc);

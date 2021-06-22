@@ -11,6 +11,7 @@ import 'package:flutter_commerce/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:spinner_input/spinner_input.dart';
 import 'package:uuid/uuid.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _CartScreenState extends State<CartScreen> {
         iconTheme: IconThemeData(color: black),
         backgroundColor: white,
         elevation: 0.0,
-        title: CustomText(text: "Shopping Cart"),
+        title: CustomText(text: "shopping_cart".tr()),
         leading: IconButton(
             icon: Icon(Icons.close),
             onPressed: () {
@@ -59,7 +60,7 @@ class _CartScreenState extends State<CartScreen> {
                     userProvider.reloadUserModel();
                     print("Item added to cart");
                     _key.currentState.showSnackBar(SnackBar(
-                        content: Text("Removed from Cart!")));
+                        content: Text("button_remove_cart").tr()));
                     appProvider.changeIsLoading();
                     return;
                   } else {
@@ -185,7 +186,7 @@ class _CartScreenState extends State<CartScreen> {
               RichText(
                 text: TextSpan(children: [
                   TextSpan(
-                      text: "Total: ",
+                      text: "text_total".tr(),
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 22,
@@ -226,7 +227,7 @@ class _CartScreenState extends State<CartScreen> {
                                           MainAxisAlignment.center,
                                           children: <Widget>[
                                             Text(
-                                              'Your cart is emty',
+                                              'text_empty_cart'.tr(),
                                               textAlign: TextAlign.center,
                                             ),
                                           ],
@@ -327,7 +328,7 @@ class _CartScreenState extends State<CartScreen> {
                           });
                     },
                     child: CustomText(
-                      text: "Check out",
+                      text: "text_cart_checkout".tr(),
                       size: 20,
                       color: white,
                       weight: FontWeight.normal,

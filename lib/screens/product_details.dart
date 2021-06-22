@@ -12,6 +12,7 @@ import 'package:flutter_commerce/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'cart.dart';
 
@@ -226,13 +227,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                         }
                         if (success) {
                           _key.currentState.showSnackBar(
-                              SnackBar(content: Text("Added to Favourite!")));
+                              SnackBar(content: Text("text_add_favorite").tr()));
                           userProvider.reloadUserModel();
                           appProvider.changeIsLoading();
                           return;
                         } else {
                           _key.currentState.showSnackBar(
-                              SnackBar(content: Text("Not added to Favourite!")));
+                              SnackBar(content: Text("text_no_add_favorite").tr()));
                           appProvider.changeIsLoading();
                           return;
                         }
@@ -298,7 +299,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: CustomText(
-                        text: "Select a Color",
+                        text: "text_select_color".tr(),
                         color: white,
                       ),
                     ),
@@ -337,7 +338,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: CustomText(
-                        text: "Select a Size",
+                        text: "text_select_size".tr(),
                         color: white,
                       ),
                     ),
@@ -390,13 +391,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   count: 1);
                               if (success) {
                                 _key.currentState.showSnackBar(
-                                    SnackBar(content: Text("Added to Cart!")));
+                                    SnackBar(content: Text("text_add_cart").tr()));
                                 userProvider.reloadUserModel();
                                 appProvider.changeIsLoading();
                                 return;
                               } else {
                                 _key.currentState.showSnackBar(SnackBar(
-                                    content: Text("Not added to Cart!")));
+                                    content: Text("text_no_add_cart").tr()));
                                 appProvider.changeIsLoading();
                                 return;
                               }
@@ -405,7 +406,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             child: appProvider.isLoading
                                 ? Loading()
                                 : Text(
-                                    "Add to cart",
+                                    "text_add_to_cart".tr(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.black,
