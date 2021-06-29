@@ -1,6 +1,10 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_commerce/db/liqpay_checkout.dart';
 
 import 'package:flutter_commerce/db/order.dart';
+import 'package:flutter_commerce/db/payment.dart';
 import 'package:flutter_commerce/models/cart_item.dart';
 import 'package:flutter_commerce/provider/app.dart';
 import 'package:flutter_commerce/provider/user_provider.dart';
@@ -10,8 +14,11 @@ import 'package:flutter_commerce/widgets/custom_text.dart';
 import 'package:flutter_commerce/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:spinner_input/spinner_input.dart';
-import 'package:uuid/uuid.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
+import 'package:stripe_payment/stripe_payment.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -21,6 +28,26 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final _key = GlobalKey<ScaffoldState>();
   OrderServices _orderServices = OrderServices();
+  Token _paymentToken;
+  PaymentMethod _paymentMethod;
+  String _error;
+  final String _currentSecret = "sk_test_51J3MCWHQdn1qugM7Rmr6UPWhwkFHq2mOJj9oxiEZ1BsYF9MSSNFOPPq4U4EDnGer3Ks8It8eq8JTWqGP9uguSnUd00ZZ58TB8F"; //set this yourself, e.g using curl  // TODO: implement initState
+  PaymentIntentResult _paymentIntent;
+
+
+
+   @override
+   void initState() {
+    super.initState();
+   Source _source;  StripePayment.setOptions(
+      StripeOptions(
+          publishableKey: "pk_test_51J3MCWHQdn1qugM72L5bSB8YDZl0ZtJxTYVzNMktLZum5q91yLFx45w1iAaUBifroVZf06G3UjaoSnKI0y6MK9iN00kIZ1WFjX",
+          merchantId: "YOUR_MERCHANT_ID" ,
+          androidPayMode: 'test' )
+      );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -243,7 +270,8 @@ class _CartScreenState extends State<CartScreen> {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return Dialog(
+                            return Payment();
+                           /* return Dialog(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20.0)),
                               //this right here
@@ -264,7 +292,29 @@ class _CartScreenState extends State<CartScreen> {
                                         width: 320.0,
                                         child: RaisedButton(
                                           onPressed: () async {
-                                            var uuid = Uuid();
+                                            StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest())
+                                            .then((paymentMethod){
+                                              setState(() {
+                                                _paymentMethod = paymentMethod;
+                                              });
+                                            });
+                                           /* LiqpayCheckout liqpayCheckout = LiqpayCheckout(3, "sandbox_i37399360418", "pay", 10, "UAH", "description", "0000001");
+                                            String json_string = jsonEncode(liqpayCheckout.toJson());
+                                            String data = base64Encode(utf8.encode(json_string));
+                                            String private_key = "sandbox_LVbZgjcZpJDgcIrzseaSAReAXojy4sxLqgjiSFEW";
+                                            String sign_string = private_key + data + private_key;
+                                            String signature  = base64Encode(sha1.convert(sign_string.codeUnits).bytes);
+                                            final response = await http.post(
+                                                Uri.parse('https://www.liqpay.ua/api/3/checkout'),
+                                                //Uri.parse('https://www.liqpay.ua/api/request'),
+                                                headers: <String, String>{
+                                                  'Content-Type': 'application/x-www-form-urlencoded',
+                                                  'signature': signature,
+                                                },
+                                                body: data,
+                                            );
+                                            print(response.statusCode);      */
+                                            /*var uuid = Uuid();
                                             String id = uuid.v4();
                                             _orderServices.createOrder(
                                                 userId: userProvider.user.uid,
@@ -297,7 +347,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 SnackBar(
                                                     content: Text(
                                                         "Order created!")));
-                                            Navigator.pop(context);
+                                            Navigator.pop(context);*/
                                           },
                                           child: Text(
                                             "Accept",
@@ -324,7 +374,7 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                 ),
                               ),
-                            );
+                            ); */
                           });
                     },
                     child: CustomText(
