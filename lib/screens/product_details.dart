@@ -59,38 +59,45 @@ class _ProductDetailsState extends State<ProductDetails> {
                   alignment: Alignment.center,
                   child: Loading(),
                 )),*/
-                Center(
-                    child: Container(
-                      height: 400,
-                      child: PageView(
-                        physics: BouncingScrollPhysics(),
-                        controller: _pageController,
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(
-                          widget.product.picture.length,
-                                (index) =>
-                                  Container(
-                                    margin: EdgeInsets.only(right: 28.8),
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 400,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(9.6),
-                                        image: DecorationImage(
-                                            image: CachedNetworkImageProvider(
-                                                widget.product.picture[index]),
-                                            fit: BoxFit.fill)),
-                                  )
+                Hero(
+                  transitionOnUserGestures: true,
+                  tag:  widget.product.id,
+                  child: Transform.scale(
+                    scale: 2.0,
+                    child: Center(
+                        child: Container(
+                          height: 400,
+                          child: PageView(
+                            physics: BouncingScrollPhysics(),
+                            controller: _pageController,
+                            scrollDirection: Axis.horizontal,
+                            children: List.generate(
+                              widget.product.picture.length,
+                                    (index) =>
+                                      Container(
+                                        margin: EdgeInsets.only(right: 28.8),
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 400,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(9.6),
+                                            image: DecorationImage(
+                                                image: CachedNetworkImageProvider(
+                                                    widget.product.picture[index]),
+                                                fit: BoxFit.fill)),
+                                      )
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
 
-                  /*child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: widget.product.picture[0],
-                    fit: BoxFit.fill,
-                    height: 400,
-                    width: double.infinity,
-                  ),*/
+                      /*child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: widget.product.picture[0],
+                        fit: BoxFit.fill,
+                        height: 400,
+                        width: double.infinity,
+                      ),*/
+                    ),
+                  ),
                 ),
                 Positioned(
                   top: 30,
