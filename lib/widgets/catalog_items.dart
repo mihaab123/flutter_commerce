@@ -28,10 +28,10 @@ class CatalogItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Hero(
-                tag: "${product.id}",
+                tag: product.id,
                 child: FadeInImage.memoryNetwork(
                   placeholder: kTransparentImage,
-                  image: product.picture[0],
+                  image: product.picture[0] as String,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -47,7 +47,7 @@ class CatalogItem extends StatelessWidget {
           ),
           Text(
             "\$${product.price/100}",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           )
         ],
       ),

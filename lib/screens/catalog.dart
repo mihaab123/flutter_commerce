@@ -66,7 +66,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
       endDrawer: Drawer(
         child: Column(
           children: [
-            Text("text_filter_by").tr(),
+            const Text("text_filter_by").tr(),
             Expanded(
               child: ExpandableTheme(
                 data: const ExpandableThemeData(
@@ -87,7 +87,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
             ),
             ElevatedButton(
               onPressed: () {},
-              child: Text("button_apply").tr(),
+              child: const Text("button_apply").tr(),
             ),
           ],
         ),
@@ -100,7 +100,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: GridView.builder(
                   itemCount: productProvider.products.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 20,
                     crossAxisSpacing: 20,

@@ -17,13 +17,13 @@ class FeaturedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4),
+      padding: const EdgeInsets.all(4),
       child: InkWell(
         onTap: (){
           changeScreen(context, ProductDetails(product: product,));
         },
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(
                 color:
@@ -41,13 +41,12 @@ class FeaturedCard extends StatelessWidget {
                 children: <Widget>[
                   Positioned.fill(
                       child: Align(
-                        alignment: Alignment.center,
                         child: Loading(),
                       )),
                   Center(
                     child: FadeInImage.memoryNetwork(
                       placeholder: kTransparentImage,
-                      image: product.picture[0],
+                      image: product.picture[0] as String,
                       fit: BoxFit.cover,
                       height: 220,
                       width: 200,
@@ -92,8 +91,8 @@ class FeaturedCard extends StatelessWidget {
                     child: Padding(
                         padding: const EdgeInsets.only(left:8.0),
                         child: RichText(text: TextSpan(children: [
-                          TextSpan(text: '${product.name} \n', style: TextStyle(fontSize: 18)),
-                          TextSpan(text: '\$${product.price / 100} \n', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                          TextSpan(text: '${product.name} \n', style: const TextStyle(fontSize: 18)),
+                          TextSpan(text: '\$${product.price / 100} \n', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
 
                         ]))
                     ),

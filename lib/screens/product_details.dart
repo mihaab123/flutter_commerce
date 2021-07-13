@@ -36,8 +36,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _color = widget.product.colors[0];
-    _size = widget.product.sizes[0];
+    _color = widget.product.colors[0] as String;
+    _size = widget.product.sizes[0] as String;
   }
 
   @override
@@ -68,21 +68,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                         child: Container(
                           height: 400,
                           child: PageView(
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             controller: _pageController,
-                            scrollDirection: Axis.horizontal,
                             children: List.generate(
                               widget.product.picture.length,
                                     (index) =>
                                       Container(
-                                        margin: EdgeInsets.only(right: 28.8),
+                                        margin: const EdgeInsets.only(right: 28.8),
                                         width: MediaQuery.of(context).size.width,
                                         height: 400,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(9.6),
                                             image: DecorationImage(
                                                 image: CachedNetworkImageProvider(
-                                                    widget.product.picture[index]),
+                                                    widget.product.picture[index] as String),
                                                 fit: BoxFit.fill)),
                                       )
                             ),
@@ -211,8 +210,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                             elevation: 10,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Icon(Icons.shopping_cart),
                             ),
                           )),
@@ -234,13 +233,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                         }
                         if (success) {
                           _key.currentState.showSnackBar(
-                              SnackBar(content: Text("text_add_favorite").tr()));
+                              SnackBar(content: const Text("text_add_favorite").tr()));
                           userProvider.reloadUserModel();
                           appProvider.changeIsLoading();
                           return;
                         } else {
                           _key.currentState.showSnackBar(
-                              SnackBar(content: Text("text_no_add_favorite").tr()));
+                              SnackBar(content: const Text("text_no_add_favorite").tr()));
                           appProvider.changeIsLoading();
                           return;
                         }
@@ -265,18 +264,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                     alignment: Alignment.centerLeft,
                     child: InkWell(
                       onTap: () {
-                        print("CLICKED");
+                        debugPrint("CLICKED");
                         Navigator.pop(context);
                       },
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
                                 bottomRight: Radius.circular(35))),
-                        child: Padding(
-                            padding: const EdgeInsets.all(4.0),
+                        child: const Padding(
+                            padding: EdgeInsets.all(4.0),
                             child: Padding(
-                              padding: const EdgeInsets.all(12),
+                              padding: EdgeInsets.all(12),
                               child: Icon(
                                 Icons.arrow_back,
                                 color: Colors.black,
@@ -290,7 +289,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
@@ -331,7 +330,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     child: InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _color = widget.product.colors[index];
+                                          _color = widget.product.colors[index] as String;
                                         });
                                       },
                                       child: CircleAvatar(
@@ -357,26 +356,26 @@ class _ProductDetailsState extends State<ProductDetails> {
                               return Padding(
                                 padding: const EdgeInsets.all(11.0),
                                 child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _size = widget.product.sizes[index] as String;
+                                    });
+                                  },
                                   child: CustomText(
-                                    text: widget.product.sizes[index],
+                                    text: widget.product.sizes[index] as String,
                                     color: widget.product.sizes[index] == _size
                                         ? Colors.red
                                         : Colors.white,
                                   ),
-                                  onTap: () {
-                                    setState(() {
-                                      _size = widget.product.sizes[index];
-                                    });
-                                  },
                                 ),
                               );
                             })),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Expanded(
+                    const Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text(
                             'Description:\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s  Lorem Ipsum has been the industry standard dummy text ever since the 1500s ',
                             style: TextStyle(color: Colors.white)),
@@ -391,20 +390,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: MaterialButton(
                             onPressed: () async {
                               appProvider.changeIsLoading();
-                              bool success = await userProvider.addToCart(
+                              final bool success = await userProvider.addToCart(
                                   product: widget.product,
                                   color: _color,
                                   size: _size,
                                   count: 1);
                               if (success) {
                                 _key.currentState.showSnackBar(
-                                    SnackBar(content: Text("text_add_cart").tr()));
+                                    SnackBar(content: const Text("text_add_cart").tr()));
                                 userProvider.reloadUserModel();
                                 appProvider.changeIsLoading();
                                 return;
                               } else {
                                 _key.currentState.showSnackBar(SnackBar(
-                                    content: Text("text_no_add_cart").tr()));
+                                    content: const Text("text_no_add_cart").tr()));
                                 appProvider.changeIsLoading();
                                 return;
                               }
@@ -415,7 +414,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 : Text(
                                     "text_add_to_cart".tr(),
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20.0),

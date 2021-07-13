@@ -28,13 +28,13 @@ class _LoginState extends State<Login> {
   Auth auth =Auth();
   final _formKey = GlobalKey<FormState>();
   final _key = GlobalKey<ScaffoldState>();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _password = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   User currentUser;
   SharedPreferences preferences;
   bool isLoading = false;
-  bool isLogedin = false;
+  bool isLoggedIn = false;
   bool hidePass = true;
 
  /* @override
@@ -43,16 +43,16 @@ class _LoginState extends State<Login> {
     isSignedIn();
   }*/
 
-  void isSignedIn() async {
+  Future<void> isSignedIn() async {
     setState(() {
       isLoading = true;
     });
     currentUser = await firebaseAuth.currentUser;
     if(currentUser != null){
-        setState(() => isLogedin = true);
+        setState(() => isLoggedIn = true);
     }
 
-    if (isLogedin) {
+    if (isLoggedIn) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomePage()));
     }
@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
     GoogleSignInAuthentication googleAuthentication = await googleUser.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(idToken: googleAuthentication.idToken,accessToken: googleAuthentication.accessToken);
     User firebaseUser = (await firebaseAuth.signInWithCredential(credential)).user;*/
-    User firebaseUser = await auth.googleSignIn();
+    final User firebaseUser = await auth.googleSignIn();
 
     if(firebaseUser!=null){
       // check if already sing in
@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
           .get();
       final List<DocumentSnapshot> documentsSnapshot = resultQuery.docs;
       // save data to firestore if new user
-      if(documentsSnapshot.length == 0) {
+      if(documentsSnapshot.isEmpty) {
         await databaseReference
             .collection("users")
             .doc(firebaseUser.uid)
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
           "id": firebaseUser.uid,
           "createdAt": DateTime.now().microsecondsSinceEpoch.toString(),
         })
-            .then((_) => print("success!"));
+            .then((_) => debugPrint("success!"));
         // write data to local
         currentUser = firebaseUser;
         await preferences.setString("id", currentUser.uid);
@@ -105,7 +105,7 @@ class _LoginState extends State<Login> {
         await preferences.setString("photoURL", documentsSnapshot[0]["photoURL"]);
       }
       Fluttertoast.showToast(msg: "text_signin_success".tr());
-      this.setState(() {
+      setState(() {
         isLoading = false;
       });
       Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
@@ -113,7 +113,7 @@ class _LoginState extends State<Login> {
     // SignIn Not Success
     else {
       Fluttertoast.showToast(msg: "text_signin_failed".tr());
-      this.setState(() {
+      setState(() {
         isLoading = false;
       });
     }
@@ -176,7 +176,6 @@ class _LoginState extends State<Login> {
                           child: Material(
                             borderRadius: BorderRadius.circular(10.0),
                             color: Colors.white.withOpacity(0.4),
-                            elevation: 0.0,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 12.0),
                               child: ListTile(
@@ -184,7 +183,7 @@ class _LoginState extends State<Login> {
                                   controller: _email,
                                   decoration: InputDecoration(
                                     hintText: "email".tr(),
-                                    icon: Icon(Icons.alternate_email),
+                                    icon: const Icon(Icons.alternate_email),
                                   ),
                                   validator: (value) {
                                     if (value.isEmpty) {
@@ -209,7 +208,6 @@ class _LoginState extends State<Login> {
                           child: Material(
                             borderRadius: BorderRadius.circular(10.0),
                             color: Colors.white.withOpacity(0.4),
-                            elevation: 0.0,
                             child: Padding(
                               padding: const EdgeInsets.only(left: 12.0),
                               child: ListTile(
@@ -218,7 +216,7 @@ class _LoginState extends State<Login> {
                                   controller: _password,
                                   decoration: InputDecoration(
                                     hintText: "password".tr(),
-                                    icon: Icon(Icons.lock_outline),
+                                    icon: const Icon(Icons.lock_outline),
                                   ),
                                   validator: (value) {
                                     if (value.isEmpty) {
@@ -230,7 +228,7 @@ class _LoginState extends State<Login> {
                                   },
                                 ),
                                 trailing: IconButton(
-                                    icon: Icon(Icons.remove_red_eye),
+                                    icon: const Icon(Icons.remove_red_eye),
                                     onPressed: () {
                                       setState(() {
                                         hidePass = !hidePass;
@@ -247,7 +245,6 @@ class _LoginState extends State<Login> {
                           child: Material(
                               borderRadius: BorderRadius.circular(20.0),
                               color: Colors.red,
-                              elevation: 0.0,
                               child: MaterialButton(
                                 onPressed: () {
                                    validate(user);
@@ -256,7 +253,7 @@ class _LoginState extends State<Login> {
                                 child: Text(
                                   "signin".tr(),
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20.0),
@@ -330,12 +327,12 @@ class _LoginState extends State<Login> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
                                 child: Divider(),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
                                 child: Text("Or", style: TextStyle(fontSize: 20,color: Colors.grey),),
                               ),
                               Padding(
@@ -396,7 +393,7 @@ class _LoginState extends State<Login> {
               child: Container(
                 alignment: Alignment.center,
                 color: Colors.white.withOpacity(0.9),
-                child: CircularProgressIndicator(
+                child: const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                 ),
               ),
@@ -409,8 +406,9 @@ class _LoginState extends State<Login> {
 
   Future<void> validate(UserProvider user) async {
     if(_formKey.currentState.validate()){
-      if(!await user.signIn(_email.text, _password.text))
-        _key.currentState.showSnackBar(SnackBar(content: Text("text_signin_failed").tr()));
+      if(!await user.signIn(_email.text, _password.text)) {
+        _key.currentState.showSnackBar(SnackBar(content: const Text("text_signin_failed").tr()));
+      }
     }
   }
 }

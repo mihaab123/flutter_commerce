@@ -36,14 +36,14 @@ class UserModel {
 
 
   UserModel.fromSnapshot(DocumentSnapshot snapshot) {
-    Map data = snapshot.data();
-    _name = data[NAME];
-    _email = data[EMAIL];
-    _id = data[ID];
-    _stripeId = data[STRIPE_ID] ?? "";
-    cart = _convertCartItems(data[CART]?? []);
-    favorite = _convertFavoriteItems(data[FAVORITE]?? []);
-    totalCartPrice = data[CART] == null ? 0 :getTotalPrice(cart: data[CART]);
+    final Map data = snapshot.data() as Map;
+    _name = data[NAME] as String;
+    _email = data[EMAIL]as String;
+    _id = data[ID]as String;
+    _stripeId = data[STRIPE_ID]as String ?? "";
+    cart = _convertCartItems(data[CART] as List?? []);
+    favorite = _convertFavoriteItems(data[FAVORITE] as List?? []);
+    totalCartPrice = data[CART] == null ? 0 :getTotalPrice(cart: data[CART] as List);
 
   }
 

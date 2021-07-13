@@ -52,18 +52,18 @@ class ProductModel {
   List get sizes => _sizes;
 
   ProductModel.fromSnapshot(DocumentSnapshot snapshot) {
-    Map data = snapshot.data();
-    _id = data[ID];
-    _brand = data[BRAND];
-    _sale = data[SALE];
-    _description = data[DESCRIPTION] ?? " ";
-    _featured = data[FEATURED];
-    _price = data[PRICE].floor();
-    _category = data[CATEGORY];
-    _colors = data[COLORS];
-    _sizes = data[SIZES];
-    _name = data[NAME];
-    _picture = data[PICTURE];
+    final Map data = snapshot.data() as Map;
+    _id = data[ID] as String;
+    _brand = data[BRAND] as String;
+    _sale = data[SALE] as bool;
+    _description = data[DESCRIPTION] as String ?? " ";
+    _featured = data[FEATURED] as bool;
+    _price = data[PRICE].floor() as int;
+    _category = data[CATEGORY] as String;
+    _colors = data[COLORS] as List;
+    _sizes = data[SIZES] as List;
+    _name = data[NAME] as String;
+    _picture = data[PICTURE] as List;
 
   }
 }

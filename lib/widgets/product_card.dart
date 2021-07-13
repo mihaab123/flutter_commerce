@@ -29,7 +29,7 @@ class ProductCard extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey[300],
-                    offset: Offset(-2, -1),
+                    offset: const Offset(-2, -1),
                     blurRadius: 5),
               ]),
           child: Row(
@@ -42,13 +42,12 @@ class ProductCard extends StatelessWidget {
                     children: <Widget>[
                       Positioned.fill(
                           child: Align(
-                            alignment: Alignment.center,
                             child: Loading(),
                           )),
                       Center(
                         child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
-                          image: product.picture[0],
+                          image: product.picture[0] as String,
                           fit: BoxFit.cover,
                           height: 140,
                           width: 120,
@@ -65,29 +64,29 @@ class ProductCard extends StatelessWidget {
                 text: TextSpan(children: [
                   TextSpan(
                     text: '${product.name} \n',
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   TextSpan(
-                    text: 'text_by'.tr()+' ${product.brand} \n\n',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    text: '${'text_by'.tr()}${' ${product.brand} \n\n'}',
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   TextSpan(
-                    text: 'text_size'.tr()+' ${product.sizes.join(",")} \n\n',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    text: '${'text_size'.tr()}${' ${product.sizes.join(",")} \n\n'}',
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   TextSpan(
                     text: '\$${product.price / 100} \t',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   TextSpan(
                     text: product.sale ? 'on_sale'.tr() : "",
 
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
                         color: Colors.red),
                   ),
-                ], style: TextStyle(color: Colors.black)),
+                ], style: const TextStyle(color: Colors.black)),
               )
             ],
           ),
@@ -107,7 +106,7 @@ class ProductCard extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.network(
-            product.picture[0],
+            product.picture[0] as String,
             height: 140,
             width: 120,
             fit: BoxFit.cover,

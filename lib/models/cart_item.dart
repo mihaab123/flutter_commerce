@@ -40,14 +40,14 @@ class CartItemModel {
   }
 
   CartItemModel.fromMap(Map data){
-    _id = data[ID];
-    _name =  data[NAME];
-    _image =  data[IMAGE];
-    _productId = data[PRODUCT_ID];
-    _price = data[PRICE];
-    _size = data[SIZE];
-    _color = data[COLOR];
-    _count = data[COUNT];
+    _id = data[ID] as String;
+    _name =  data[NAME] as String;
+    _image =  data[IMAGE] as String;
+    _productId = data[PRODUCT_ID] as String;
+    _price = data[PRICE] as int;
+    _size = data[SIZE] as String;
+    _color = data[COLOR] as String;
+    _count = data[COUNT] as int;
   }
 
   Map toMap() => {

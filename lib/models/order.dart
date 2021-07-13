@@ -33,13 +33,13 @@ class OrderModel {
   List cart;
 
   OrderModel.fromSnapshot(DocumentSnapshot snapshot) {
-    Map data = snapshot.data();
-    _id = data[ID];
-    _description = data[DESCRIPTION];
-    _total = data[TOTAL];
-    _status = data[STATUS];
-    _userId = data[USER_ID];
-    _createdAt = data[CREATED_AT];
-    cart = data[CART];
+    final Map data = snapshot.data() as Map;
+    _id = data[ID] as String;
+    _description = data[DESCRIPTION] as String;
+    _total = data[TOTAL] as int;
+    _status = data[STATUS] as String;
+    _userId = data[USER_ID] as String;
+    _createdAt = data[CREATED_AT] as int;
+    cart = data[CART] as List;
   }
 }

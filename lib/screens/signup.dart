@@ -15,20 +15,20 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  FirebaseFirestore _database = FirebaseFirestore.instance;
+  final FirebaseFirestore _database = FirebaseFirestore.instance;
   final _formKey = GlobalKey<FormState>();
   Auth auth =Auth();
-  UserServices _userServices = UserServices();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _nameTextController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final UserServices _userServices = UserServices();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _nameTextController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   String gender = "male";
   String groupValue = "male";
   bool hidePass = true;
   bool loading = false;
 
-  valueChanged(value){
+  void valueChanged(String value){
     if(value == "male"){
       groupValue = value;
       gender = value;
@@ -41,11 +41,11 @@ class _SignUpState extends State<SignUp> {
     });
   }
   Future validateForm() async {
-    FormState formState = _formKey.currentState;
+    final FormState formState = _formKey.currentState;
     //firebaseAuth.signOut();
     if (formState.validate()) {
       formState.reset();
-      User user = firebaseAuth.currentUser;
+      final User user = firebaseAuth.currentUser;
       if (user == null) {
         firebaseAuth
             .createUserWithEmailAndPassword(
@@ -61,7 +61,7 @@ class _SignUpState extends State<SignUp> {
                   "createdAt": DateTime.now().millisecondsSinceEpoch.toString(),
                 }
               ).catchError((e) => {
-               print(e.toString())
+               debugPrint(e.toString())
               })
        /*   _userServices.createUser(
               {
@@ -74,7 +74,7 @@ class _SignUpState extends State<SignUp> {
               user.user.uid.toString()
           )*/
         }).catchError((err) => {
-          print(err.toString())
+          debugPrint(err.toString())
         });
         changeScreenReplacement(context,HomePage());
         /*Navigator.pushReplacement(
@@ -110,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                 )),*/
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 0.0),
+                padding: const EdgeInsets.only(),
                 child: Container(
                   decoration: BoxDecoration(
                     color: white,
@@ -140,7 +140,6 @@ class _SignUpState extends State<SignUp> {
                             child: Material(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.grey.withOpacity(0.2),
-                              elevation: 0.0,
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 12.0),
                                 child: ListTile(
@@ -148,7 +147,7 @@ class _SignUpState extends State<SignUp> {
                                     controller: _nameTextController,
                                     decoration: InputDecoration(
                                       hintText: "full_name".tr(),
-                                      icon: Icon(Icons.person_outline),
+                                      icon: const Icon(Icons.person_outline),
                                         border: InputBorder.none
                                     ),
                                     validator: (value) {
@@ -167,7 +166,6 @@ class _SignUpState extends State<SignUp> {
                             child: Material(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.grey.withOpacity(0.2),
-                              elevation: 0.0,
                               child: Row(
                                 children: [
                                   Expanded(
@@ -180,7 +178,7 @@ class _SignUpState extends State<SignUp> {
                                         trailing: Radio(
                                             value: "male",
                                             groupValue: groupValue,
-                                            onChanged: (e) => valueChanged(e)),
+                                            onChanged: (String e) => valueChanged(e)),
                                       )),
                                   Expanded(
                                       child: ListTile(
@@ -192,7 +190,7 @@ class _SignUpState extends State<SignUp> {
                                         trailing: Radio(
                                             value: "female",
                                             groupValue: groupValue,
-                                            onChanged: (e) => valueChanged(e)),
+                                            onChanged: (String e) => valueChanged(e)),
                                       )),
                                 ],
                               ),
@@ -203,14 +201,13 @@ class _SignUpState extends State<SignUp> {
                             child: Material(
                                 borderRadius: BorderRadius.circular(10.0),
                                 color: Colors.grey.withOpacity(0.2),
-                                elevation: 0.0,
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 12.0),
                                 child: TextFormField(
                                   controller: _emailTextController,
                                   decoration: InputDecoration(
                                     hintText: "email".tr(),
-                                    icon: Icon(Icons.alternate_email),
+                                    icon: const Icon(Icons.alternate_email),
                                       border: InputBorder.none
                                   ),
                                   validator: (value) {
@@ -235,7 +232,6 @@ class _SignUpState extends State<SignUp> {
                             child: Material(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.grey.withOpacity(0.2),
-                              elevation: 0.0,
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 12.0),
                                 child: ListTile(
@@ -244,7 +240,7 @@ class _SignUpState extends State<SignUp> {
                                     controller: _passwordTextController,
                                     decoration: InputDecoration(
                                       hintText: "password".tr(),
-                                      icon: Icon(Icons.lock_outline),
+                                      icon: const Icon(Icons.lock_outline),
                                         border: InputBorder.none
                                     ),
                                     validator: (value) {
@@ -257,7 +253,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   trailing: IconButton(
-                                      icon: Icon(Icons.remove_red_eye),
+                                      icon: const Icon(Icons.remove_red_eye),
                                       onPressed: () {
                                         setState(() {
                                           hidePass = !hidePass;
@@ -274,7 +270,6 @@ class _SignUpState extends State<SignUp> {
                             child: Material(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.grey.withOpacity(0.2),
-                              elevation: 0.0,
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 12.0),
                                 child: ListTile(
@@ -283,7 +278,7 @@ class _SignUpState extends State<SignUp> {
                                     controller: _confirmPasswordController,
                                     decoration: InputDecoration(
                                       hintText: "confirm_password".tr(),
-                                      icon: Icon(Icons.lock_outline),
+                                      icon: const Icon(Icons.lock_outline),
                                       border: InputBorder.none
                                     ),
                                     validator: (value) {
@@ -308,7 +303,6 @@ class _SignUpState extends State<SignUp> {
                             child: Material(
                                 borderRadius: BorderRadius.circular(20.0),
                                 color: deepOrange,
-                                elevation: 0.0,
                                 child: MaterialButton(
                                   onPressed: () async{
                                     validateForm();
@@ -350,13 +344,13 @@ class _SignUpState extends State<SignUp> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
                                   child: Divider(),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text("text_sign_with".tr(), style: TextStyle(fontSize: 20,color: Colors.grey),),
+                                  child: Text("text_sign_with".tr(), style: const TextStyle(fontSize: 20,color: Colors.grey),),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -387,7 +381,7 @@ class _SignUpState extends State<SignUp> {
                                 child: Material(
                                     child: MaterialButton(
                                         onPressed: () async {
-                                          User firebaseUser = await auth.googleSignIn();
+                                          final User firebaseUser = await auth.googleSignIn();
                                           if(firebaseUser!=null){
                                             _userServices.createUser({
                                               "nickname": firebaseUser.displayName,
@@ -415,7 +409,7 @@ class _SignUpState extends State<SignUp> {
                 child: Container(
                   alignment: Alignment.center,
                   color: Colors.white.withOpacity(0.9),
-                  child: CircularProgressIndicator(
+                  child: const CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                   ),
                 ),

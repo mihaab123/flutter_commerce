@@ -4,12 +4,12 @@ import 'package:flutter_commerce/db/product.dart';
 import 'package:flutter_commerce/models/product.dart';
 
 class ProductProvider with ChangeNotifier{
-  ProductServices _productServices = ProductServices();
+  final ProductServices _productServices = ProductServices();
   List<ProductModel> products = [];
   List<ProductModel> productsSearched = [];
   List<ProductModel> productsFeatured = [];
-  Map<String,List<String>> productProperties = Map<String,List<String>>();
-  List<String> productPropertiesList =List<String>();
+  Map<String,List<String>> productProperties = [] as Map<String, List<String>>;
+  List<String> productPropertiesList =[];
 
 
   ProductProvider.initialize(){
@@ -17,7 +17,7 @@ class ProductProvider with ChangeNotifier{
     loadFeaturedProducts();
   }
 
-  loadProducts()async{
+  Future<void> loadProducts()async{
     products = await _productServices.getProducts();
     notifyListeners();
   }
@@ -30,16 +30,16 @@ class ProductProvider with ChangeNotifier{
     productsFeatured = await _productServices.getFeaturedProducts();
     notifyListeners();
   }
-  loadProductProperties()async{
+  Future<void> loadProductProperties()async{
     productProperties.clear();
     productPropertiesList.clear();
-    for (var product in products){
+    for (final product in products){
       // sizes
       List<String> tempList = [];
       if(productProperties.containsKey("sizes")){
         tempList = productProperties["sizes"];
       }
-      for (var size in product.sizes) {
+      for (final String size in product.sizes) {
         if (!tempList.contains(size)) {
           tempList.add(size);
         }
@@ -52,7 +52,7 @@ class ProductProvider with ChangeNotifier{
       if(productProperties.containsKey("colors")){
         tempList = productProperties["colors"];
       }
-      for (var color in product.colors) {
+      for (final color in product.colors) {
         if (!tempList.contains(color)) {
           tempList.add(color);
         }

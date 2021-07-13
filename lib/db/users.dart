@@ -6,14 +6,13 @@ import 'package:flutter_commerce/models/favorite_item.dart';
 import 'package:flutter_commerce/models/user.dart';
 
 class UserServices{
-  FirebaseFirestore _database = FirebaseFirestore.instance;
+  final FirebaseFirestore _database = FirebaseFirestore.instance;
   String ref = "users";
 
-  createUser(Map value, String id){
-    _database.collection(ref).doc(id).set(
-        value
-    ).catchError((e) => {
-      print(e.toString())
+  void createUser(Map<String,dynamic> value, String id){
+    _database.collection(ref).doc(id).set(value)
+        .catchError((e) => {
+      debugPrint(e.toString())
     });
   }
   Future<UserModel> getUserById(String id)=> _database.collection(ref).doc(id).get().then((doc){

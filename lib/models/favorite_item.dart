@@ -12,8 +12,8 @@ class FavoriteItemModel {
 
 
   FavoriteItemModel.fromMap(Map data){
-    _id = data[ID];
-    _productId = data[PRODUCT_ID];
+    _id = data[ID] as String;
+    _productId = data[PRODUCT_ID] as String;
   }
 
   Map toMap() => {

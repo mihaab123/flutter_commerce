@@ -37,7 +37,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         elevation: 0.0,
         title: CustomText(text: "favorites".tr()),
         leading: IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             onPressed: () {
               Navigator.pop(context);
             }),
@@ -58,24 +58,24 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     boxShadow: [
                       BoxShadow(
                           color: Colors.red.withOpacity(0.2),
-                          offset: Offset(3, 2),
+                          offset: const Offset(3, 2),
                           blurRadius: 30)
                     ]),
                 child: Row(
                   children: <Widget>[
                     ClipRRect(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         topLeft: Radius.circular(20),
                       ),
                       child: Image.network(
-                        cartList[index].picture[0],
+                        cartList[index].picture[0] as String,
                         height: 120,
                         width: 140,
                         fit: BoxFit.fill,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -85,8 +85,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                  text: cartList[index].name +
-                                      "\n",
+                                  text: "${cartList[index].name}\n",
                                   style: TextStyle(
                                       color: black,
                                       fontSize: 20,
@@ -103,21 +102,21 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ]),
                           ),
                           IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.delete,
                                 color: Colors.red,
                               ),
                               onPressed: () async {
                                 appProvider.changeIsLoading();
-                                bool success =
+                                final bool success =
                                 await userProvider.removeFromFavourite(
                                     favouriteItem: userProvider
                                         .userModel.favorite[index]);
                                 if (success) {
                                   userProvider.reloadUserModel();
-                                  print("Item removed for favorite");
+                                  debugPrint("Item removed for favorite");
                                   _key.currentState.showSnackBar(SnackBar(
-                                      content: Text("button_remove_favorite").tr()));
+                                      content: const Text("button_remove_favorite").tr()));
                                   appProvider.changeIsLoading();
                                   return;
                                 } else {
@@ -137,8 +136,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   List<ProductModel> getFavoriteCartItem(UserProvider userProvider, ProductProvider productProvider) {
     List<ProductModel> list=[];
-    for (var pairFavorite in userProvider.userModel.favorite){
-      for (var pairProduct in productProvider.products){
+    for (final pairFavorite in userProvider.userModel.favorite){
+      for (final pairProduct in productProvider.products){
           if(pairFavorite.productId == pairProduct.id){
             list.add(pairProduct);
           };
