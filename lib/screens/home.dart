@@ -1,4 +1,4 @@
-
+import 'package:badges/badges.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_commerce/db/product.dart';
@@ -17,10 +17,7 @@ import 'cart.dart';
 import 'package:flutter_commerce/widgets/common.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-
-
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -29,11 +26,13 @@ class _HomePageState extends State<HomePage> {
   //ProductServices _productServices = ProductServices();
   @override
   Widget build(BuildContext context) {
-    final userProvider = context.watch<UserProvider>();//Provider.of<UserProvider>(context);
-   final productProvider = context.watch<ProductProvider>();//Provider.of<ProductProvider>(context);
+    final userProvider =
+        context.watch<UserProvider>(); //Provider.of<UserProvider>(context);
+    final productProvider = context
+        .watch<ProductProvider>(); //Provider.of<ProductProvider>(context);
     Widget image_carousel = new Container(
       height: 200.0,
-      child:  new Carousel(
+      child: new Carousel(
         boxFit: BoxFit.cover,
         images: [
           AssetImage('images/w3.jpeg'),
@@ -55,7 +54,10 @@ class _HomePageState extends State<HomePage> {
         iconTheme: IconThemeData(color: deepOrange),
         elevation: 0.1,
         backgroundColor: white,
-        title: Text('app_title'.tr(), style: TextStyle(color: deepOrange),),
+        title: Text(
+          'app_title'.tr(),
+          style: TextStyle(color: deepOrange),
+        ),
         actions: <Widget>[
           new IconButton(
               icon: Icon(
@@ -63,20 +65,28 @@ class _HomePageState extends State<HomePage> {
                 color: deepOrange,
               ),
               onPressed: () {}),
-          Stack(
-            children: [
+          Stack(children: [
             new IconButton(
                 icon: Icon(
                   Icons.shopping_cart,
                   color: deepOrange,
                 ),
-                onPressed: () {changeScreen(context,CartScreen());}),
-              userProvider.userModel.cart.length > 0 ?
-              Positioned(right: 10, top: 5,
-                  child: CircleAvatar(radius: 7,backgroundColor: Colors.black,child: Text("${userProvider.userModel.cart.length}",style: TextStyle(color: white),)))
-              : Container(),
-            ]
-          )
+                onPressed: () {
+                  changeScreen(context, CartScreen());
+                }),
+            userProvider.userModel.cart.length > 0
+                ? Badge(
+                    //child:
+                        //CircleAvatar(radius: 7, backgroundColor: Colors.black),
+                    badgeContent: Text(
+                      "${userProvider.userModel.cart.length}",
+                      style: TextStyle(color: white),
+                    ),
+                  )
+                //Positioned(right: 10, top: 5,
+//                  child: CircleAvatar(radius: 7,backgroundColor: Colors.black,child: Text("${userProvider.userModel.cart.length}",style: TextStyle(color: white),)))
+                : Container(),
+          ])
         ],
       ),
       drawer: new Drawer(
@@ -97,66 +107,97 @@ class _HomePageState extends State<HomePage> {
               currentAccountPicture: GestureDetector(
                 child: new CircleAvatar(
                   backgroundColor: Colors.grey,
-                  child: Icon(Icons.person, color: Colors.white,),
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              decoration: new BoxDecoration(
-                  color: Colors.red.shade900
-              ),
+              decoration: new BoxDecoration(color: Colors.red.shade900),
             ),
 
 //            body
 
             InkWell(
-              onTap: (){changeScreen(context,HomePage());},
+              onTap: () {
+                changeScreen(context, HomePage());
+              },
               child: ListTile(
                 title: Text('home'.tr()),
-                leading: Icon(Icons.home,color: Colors.red,),
+                leading: Icon(
+                  Icons.home,
+                  color: Colors.red,
+                ),
               ),
             ),
 
             InkWell(
-              onTap: (){changeScreen(context, Profile());},
+              onTap: () {
+                changeScreen(context, Profile());
+              },
               child: ListTile(
                 title: Text('my_account'.tr()),
-                leading: Icon(Icons.person,color: Colors.red,),
+                leading: Icon(
+                  Icons.person,
+                  color: Colors.red,
+                ),
               ),
             ),
             InkWell(
-              onTap: (){changeScreen(context,CatalogScreen());},
+              onTap: () {
+                changeScreen(context, CatalogScreen());
+              },
               child: ListTile(
                 title: Text('сatalog'.tr()),
-                leading: Icon(Icons.storage,color: Colors.red,),
+                leading: Icon(
+                  Icons.storage,
+                  color: Colors.red,
+                ),
               ),
             ),
             InkWell(
-              onTap: (){changeScreen(context,OrdersScreen());},
+              onTap: () {
+                changeScreen(context, OrdersScreen());
+              },
               child: ListTile(
                 title: Text('my_orders'.tr()),
-                leading: Icon(Icons.shopping_basket,color: Colors.red,),
+                leading: Icon(
+                  Icons.shopping_basket,
+                  color: Colors.red,
+                ),
               ),
             ),
 
             InkWell(
-              onTap: (){changeScreen(context,CartScreen());},
+              onTap: () {
+                changeScreen(context, CartScreen());
+              },
               child: ListTile(
                 title: Text('shopping_cart'.tr()),
-                leading: Icon(Icons.shopping_cart,color: Colors.red,),
+                leading: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.red,
+                ),
               ),
             ),
 
             InkWell(
-              onTap: (){changeScreen(context,FavoriteScreen());},
+              onTap: () {
+                changeScreen(context, FavoriteScreen());
+              },
               child: ListTile(
                 title: Text('favorites'.tr()),
-                leading: Icon(Icons.favorite,color: Colors.red,),
+                leading: Icon(
+                  Icons.favorite,
+                  color: Colors.red,
+                ),
               ),
             ),
 
             Divider(),
 
             InkWell(
-              onTap: (){
+              onTap: () {
                 userProvider.signOut();
                 /*FirebaseAuth.instance.signOut().then((value){
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
@@ -164,14 +205,15 @@ class _HomePageState extends State<HomePage> {
               },
               child: ListTile(
                 title: Text('log_out').tr(),
-                leading: Icon(Icons.transit_enterexit, color: Colors.grey,),
+                leading: Icon(
+                  Icons.transit_enterexit,
+                  color: Colors.grey,
+                ),
               ),
             ),
-
           ],
         ),
       ),
-
       body: SingleChildScrollView(
         child: new Column(
           children: <Widget>[
@@ -224,10 +266,10 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: productProvider.products
                   .map((item) => GestureDetector(
-                child: ProductCard(
-                  product: item,
-                ),
-              ))
+                        child: ProductCard(
+                          product: item,
+                        ),
+                      ))
                   .toList(),
             )
           ],

@@ -210,11 +210,11 @@ class _SignUpState extends State<SignUp> {
                                     icon: const Icon(Icons.alternate_email),
                                       border: InputBorder.none
                                   ),
-                                  validator: (value) {
+                                  validator: (String value) {
                                     if (value.isEmpty) {
                                       Pattern pattern =
                                           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                                      RegExp regex = new RegExp(pattern);
+                                      RegExp regex = new RegExp(pattern.toString());
                                       if (!regex.hasMatch(value))
                                         return 'email_input_error'.tr();
                                       else

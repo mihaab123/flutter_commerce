@@ -8,7 +8,7 @@ class ProductProvider with ChangeNotifier{
   List<ProductModel> products = [];
   List<ProductModel> productsSearched = [];
   List<ProductModel> productsFeatured = [];
-  Map<String,List<String>> productProperties = [] as Map<String, List<String>>;
+  Map<String,List<String>> productProperties = {};
   List<String> productPropertiesList =[];
 
 
