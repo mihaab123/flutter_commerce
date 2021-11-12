@@ -3,10 +3,9 @@ import 'package:flutter_commerce/models/product.dart';
 import 'package:flutter_commerce/widgets/common.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-
 class CatalogItem extends StatelessWidget {
   final ProductModel product;
-  final Function press;
+  final VoidCallback press;
   const CatalogItem({
     Key key,
     this.product,
@@ -46,7 +45,7 @@ class CatalogItem extends StatelessWidget {
             ),
           ),
           Text(
-            "\$${product.price/100}",
+            "\$${product.price / 100}",
             style: const TextStyle(fontWeight: FontWeight.bold),
           )
         ],

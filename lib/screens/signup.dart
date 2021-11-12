@@ -17,29 +17,29 @@ class _SignUpState extends State<SignUp> {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _database = FirebaseFirestore.instance;
   final _formKey = GlobalKey<FormState>();
-  Auth auth =Auth();
+  Auth auth = Auth();
   final UserServices _userServices = UserServices();
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _nameTextController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   String gender = "male";
   String groupValue = "male";
   bool hidePass = true;
   bool loading = false;
 
-  void valueChanged(String value){
-    if(value == "male"){
+  void valueChanged(String value) {
+    if (value == "male") {
       groupValue = value;
       gender = value;
-    }else if(value == "female"){
+    } else if (value == "female") {
       groupValue = value;
       gender = value;
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   Future validateForm() async {
     final FormState formState = _formKey.currentState;
     //firebaseAuth.signOut();
@@ -49,21 +49,21 @@ class _SignUpState extends State<SignUp> {
       if (user == null) {
         firebaseAuth
             .createUserWithEmailAndPassword(
-            email: _emailTextController.text,
-            password: _passwordTextController.text)
+                email: _emailTextController.text,
+                password: _passwordTextController.text)
             .then((user) => {
-              _database.collection("users").doc(user.user.uid.toString()).set(
-                {
-                  "nickname": _nameTextController.text,
-                  "email": _emailTextController.text,
-                  "id": user.user.uid.toString(),
-                  "gender": gender,
-                  "createdAt": DateTime.now().millisecondsSinceEpoch.toString(),
-                }
-              ).catchError((e) => {
-               debugPrint(e.toString())
-              })
-       /*   _userServices.createUser(
+                  _database
+                      .collection("users")
+                      .doc(user.user.uid.toString())
+                      .set({
+                    "nickname": _nameTextController.text,
+                    "email": _emailTextController.text,
+                    "id": user.user.uid.toString(),
+                    "gender": gender,
+                    "createdAt":
+                        DateTime.now().millisecondsSinceEpoch.toString(),
+                  }).catchError((e) => {debugPrint(e.toString())})
+                  /*   _userServices.createUser(
               {
                 "nickname": _nameTextController.text,
                 "email": _emailTextController.text,
@@ -73,16 +73,16 @@ class _SignUpState extends State<SignUp> {
               },
               user.user.uid.toString()
           )*/
-        }).catchError((err) => {
-          debugPrint(err.toString())
-        });
-        changeScreenReplacement(context,HomePage());
+                })
+            .catchError((err) => {debugPrint(err.toString())});
+        changeScreenReplacement(context, HomePage());
         /*Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomePage()));*/
 
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     //double height = MediaQuery.of(context).size.height / 3;
@@ -113,18 +113,16 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.only(),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: white,
-                    borderRadius: BorderRadius.circular(16.0),
-                    boxShadow: [BoxShadow(
-                      color: Colors.grey[350],
-                      blurRadius: 20.0
-                    )]
-                  ),
+                      color: white,
+                      borderRadius: BorderRadius.circular(16.0),
+                      boxShadow: [
+                        BoxShadow(color: Colors.grey[350], blurRadius: 20.0)
+                      ]),
                   child: Form(
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                         Padding(
+                          Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Container(
                                 alignment: Alignment.topCenter,
@@ -136,7 +134,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                           Padding(
                             padding:
-                            const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                                const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                             child: Material(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.grey.withOpacity(0.2),
@@ -146,10 +144,9 @@ class _SignUpState extends State<SignUp> {
                                   title: TextFormField(
                                     controller: _nameTextController,
                                     decoration: InputDecoration(
-                                      hintText: "full_name".tr(),
-                                      icon: const Icon(Icons.person_outline),
-                                        border: InputBorder.none
-                                    ),
+                                        hintText: "full_name".tr(),
+                                        icon: const Icon(Icons.person_outline),
+                                        border: InputBorder.none),
                                     validator: (value) {
                                       if (value.isEmpty) {
                                         return "full_name_empty_error".tr();
@@ -162,7 +159,8 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                            padding:
+                                const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                             child: Material(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.grey.withOpacity(0.2),
@@ -170,51 +168,55 @@ class _SignUpState extends State<SignUp> {
                                 children: [
                                   Expanded(
                                       child: ListTile(
-                                        title: Text(
-                                          "male".tr(),
-                                          textAlign: TextAlign.end,
-                                          style: TextStyle(color: black),
-                                        ),
-                                        trailing: Radio(
-                                            value: "male",
-                                            groupValue: groupValue,
-                                            onChanged: (String e) => valueChanged(e)),
-                                      )),
+                                    title: Text(
+                                      "male".tr(),
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(color: black),
+                                    ),
+                                    trailing: Radio(
+                                        value: "male",
+                                        groupValue: groupValue,
+                                        onChanged: (String e) =>
+                                            valueChanged(e)),
+                                  )),
                                   Expanded(
                                       child: ListTile(
-                                        title: Text(
-                                          "female".tr(),
-                                          textAlign: TextAlign.end,
-                                          style: TextStyle(color: black),
-                                        ),
-                                        trailing: Radio(
-                                            value: "female",
-                                            groupValue: groupValue,
-                                            onChanged: (String e) => valueChanged(e)),
-                                      )),
+                                    title: Text(
+                                      "female".tr(),
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(color: black),
+                                    ),
+                                    trailing: Radio(
+                                        value: "female",
+                                        groupValue: groupValue,
+                                        onChanged: (String e) =>
+                                            valueChanged(e)),
+                                  )),
                                 ],
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                            padding:
+                                const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                             child: Material(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.grey.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.grey.withOpacity(0.2),
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 12.0),
                                 child: TextFormField(
                                   controller: _emailTextController,
                                   decoration: InputDecoration(
-                                    hintText: "email".tr(),
-                                    icon: const Icon(Icons.alternate_email),
-                                      border: InputBorder.none
-                                  ),
-                                  validator: (String value) {
+                                      hintText: "email".tr(),
+                                      icon: const Icon(Icons.alternate_email),
+                                      border: InputBorder.none),
+                                  validator: (value) {
                                     if (value.isEmpty) {
-                                      Pattern pattern =
+                                      String pattern =
                                           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                                      RegExp regex = new RegExp(pattern.toString());
+                                      RegExp regex =
+                                          new RegExp(pattern.toString());
+
                                       if (!regex.hasMatch(value))
                                         return 'email_input_error'.tr();
                                       else
@@ -225,10 +227,9 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-
                           Padding(
                             padding:
-                            const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                                const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                             child: Material(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.grey.withOpacity(0.2),
@@ -239,10 +240,9 @@ class _SignUpState extends State<SignUp> {
                                     obscureText: hidePass,
                                     controller: _passwordTextController,
                                     decoration: InputDecoration(
-                                      hintText: "password".tr(),
-                                      icon: const Icon(Icons.lock_outline),
-                                        border: InputBorder.none
-                                    ),
+                                        hintText: "password".tr(),
+                                        icon: const Icon(Icons.lock_outline),
+                                        border: InputBorder.none),
                                     validator: (value) {
                                       if (value.isEmpty) {
                                         return "password_empty_error".tr();
@@ -263,10 +263,9 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-
                           Padding(
                             padding:
-                            const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                                const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                             child: Material(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Colors.grey.withOpacity(0.2),
@@ -277,16 +276,16 @@ class _SignUpState extends State<SignUp> {
                                     obscureText: hidePass,
                                     controller: _confirmPasswordController,
                                     decoration: InputDecoration(
-                                      hintText: "confirm_password".tr(),
-                                      icon: const Icon(Icons.lock_outline),
-                                      border: InputBorder.none
-                                    ),
+                                        hintText: "confirm_password".tr(),
+                                        icon: const Icon(Icons.lock_outline),
+                                        border: InputBorder.none),
                                     validator: (value) {
                                       if (value.isEmpty) {
                                         return "password_empty_error".tr();
                                       } else if (value.length < 6) {
                                         return "password_long_error".tr();
-                                      } else if(_passwordTextController.text != value){
+                                      } else if (_passwordTextController.text !=
+                                          value) {
                                         return "confirm_password_error".tr();
                                       }
                                       return null;
@@ -296,15 +295,14 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                           ),
-
                           Padding(
                             padding:
-                            const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                                const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
                             child: Material(
                                 borderRadius: BorderRadius.circular(20.0),
                                 color: deepOrange,
                                 child: MaterialButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     validateForm();
                                   },
                                   minWidth: MediaQuery.of(context).size.width,
@@ -319,7 +317,7 @@ class _SignUpState extends State<SignUp> {
                                 )),
                           ),
 
-                         /* Padding(
+                          /* Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
                                   onTap: (){
@@ -336,9 +334,9 @@ class _SignUpState extends State<SignUp> {
                                   child: Text(
                                     "text_have_account".tr(),
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(color: deepOrange, fontSize: 16),
+                                    style: TextStyle(
+                                        color: deepOrange, fontSize: 16),
                                   ))),
-
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
@@ -350,7 +348,11 @@ class _SignUpState extends State<SignUp> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text("text_sign_with".tr(), style: const TextStyle(fontSize: 20,color: Colors.grey),),
+                                  child: Text(
+                                    "text_sign_with".tr(),
+                                    style: const TextStyle(
+                                        fontSize: 20, color: Colors.grey),
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -361,40 +363,47 @@ class _SignUpState extends State<SignUp> {
                               ],
                             ),
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Padding(
-                                padding:
-                                const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                                padding: const EdgeInsets.fromLTRB(
+                                    14.0, 8.0, 14.0, 8.0),
                                 child: Material(
                                     child: MaterialButton(
                                         onPressed: () {},
-                                        child: Image.asset("images/fb.png", width: 60,)
-                                    )),
+                                        child: Image.asset(
+                                          "images/fb.png",
+                                          width: 60,
+                                        ))),
                               ),
-
                               Padding(
-                                padding:
-                                const EdgeInsets.fromLTRB(14.0, 8.0, 14.0, 8.0),
+                                padding: const EdgeInsets.fromLTRB(
+                                    14.0, 8.0, 14.0, 8.0),
                                 child: Material(
                                     child: MaterialButton(
                                         onPressed: () async {
-                                          final User firebaseUser = await auth.googleSignIn();
-                                          if(firebaseUser!=null){
+                                          final User firebaseUser =
+                                              await auth.googleSignIn();
+                                          if (firebaseUser != null) {
                                             _userServices.createUser({
-                                              "nickname": firebaseUser.displayName,
+                                              "nickname":
+                                                  firebaseUser.displayName,
                                               "email": firebaseUser.email,
                                               "photo": firebaseUser.photoURL,
                                               "id": firebaseUser.uid.toString(),
-                                              "createdAt": DateTime.now().millisecondsSinceEpoch.toString(),
+                                              "createdAt": DateTime.now()
+                                                  .millisecondsSinceEpoch
+                                                  .toString(),
                                             }, firebaseUser.uid.toString());
-                                            changeScreenReplacement(context,HomePage());
+                                            changeScreenReplacement(
+                                                context, HomePage());
                                           }
                                         },
-                                        child: Image.asset("images/ggg.png", width: 60,)
-                                    )),
+                                        child: Image.asset(
+                                          "images/ggg.png",
+                                          width: 60,
+                                        ))),
                               ),
                             ],
                           ),
