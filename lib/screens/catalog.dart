@@ -80,7 +80,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     return Card3(
                         productProvider.productProperties[
                             productProvider.productPropertiesList[index]],
-                        productProvider.productPropertiesList[index], productProvider);
+                        productProvider.productPropertiesList[index],
+                        productProvider);
                   },
                 ),
               ),
@@ -126,7 +127,8 @@ class Card3 extends StatelessWidget {
   List<String> valueList;
   String valueName;
   var productProvider;
-  Card3(List<String> productPropertiesList, String productPropertiesName, var productProvider1) {
+  Card3(List<String> productPropertiesList, String productPropertiesName,
+      var productProvider1) {
     valueList = productPropertiesList;
     valueName = productPropertiesName;
     productProvider = productProvider1;
@@ -140,7 +142,7 @@ class Card3 extends StatelessWidget {
         child: CheckboxListTile(
           title: Text(label),
           onChanged: (bool value) {},
-          value: checkPropertyFilter(label,valueName),
+          value: checkPropertyFilter(label, valueName),
           controlAffinity: ListTileControlAffinity.leading,
         ),
       );
@@ -191,7 +193,7 @@ class Card3 extends StatelessWidget {
                             valueName,
                             style: Theme.of(context)
                                 .textTheme
-                                .body2
+                                .bodyText1
                                 .copyWith(color: Colors.white),
                           ),
                         ),
@@ -199,7 +201,8 @@ class Card3 extends StatelessWidget {
                     ),
                   ),
                 ),
-                expanded: buildList(), collapsed: null,
+                expanded: buildList(),
+                collapsed: null,
               ),
             ],
           ),
@@ -209,6 +212,6 @@ class Card3 extends StatelessWidget {
   }
 
   bool checkPropertyFilter(String label, String propertyName) {
-    return false;//if(widget.usedFilters.)
+    return false; //if(widget.usedFilters.)
   }
 }
